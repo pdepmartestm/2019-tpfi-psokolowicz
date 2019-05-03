@@ -23,11 +23,8 @@ cantTesorosPorPirata pirata = length (botin pirata)
 pirataAfortunado :: Pirata -> Bool
 pirataAfortunado pirata = (sum (map (valor) (botin pirata))) > 10000
 
---igualTesoroDiferenteValor :: Botin -> Botin -> Bool
---igualTesoroDiferenteValor botin1 botin2 = (fst botin1 == fst botin2) && (snd botin1 /= snd botin2)
+igualNombreDiferenteValor tesoro1 tesoro2 = ((nombreTesoro tesoro1) == (nombreTesoro tesoro2)) && ((valor tesoro1) /= (valor tesoro2))
 
---loTiene :: [Botin] -> [Botin] -> Bool
---loTiene botin1 botin2 = any (igualTesoroDiferenteValor botin1 botin2) botin2
+loTiene botin1 tesoro2 = any (igualNombreDiferenteValor tesoro2) botin1
 
---tesoroRepetidoPeroDiferenteValor :: Pirata -> Pirata -> Bool
---tesoroRepetidoPeroDiferenteValor pirata1 pirata2 = any (loTiene (snd pirata1) (snd pirata2)) (snd pirata2)
+tesoroRepetidoPeroDiferenteValor pirata1 pirata2 = any (loTiene (botin pirata1)) (botin pirata2)
