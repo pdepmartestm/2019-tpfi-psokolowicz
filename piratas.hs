@@ -39,8 +39,8 @@ tesoroRepetidoPeroDiferenteValor pirata1 pirata2 = any (loTiene (botin pirata1))
 tesoroMasValioso :: Pirata -> Tesoro
 tesoroMasValioso pirata = maximum (botin pirata)
 
-adquirirNuevoTesoro :: Pirata -> Tesoro -> Pirata
-adquirirNuevoTesoro pirata tesoroNuevo = cambioEnElBotin (tesoroNuevo : (botin pirata)) pirata
+adquirirNuevoTesoro :: Tesoro -> Pirata -> Pirata
+adquirirNuevoTesoro tesoroNuevo pirata = cambioEnElBotin (tesoroNuevo : (botin pirata)) pirata
 
 tesoroValioso :: Tesoro -> Bool
 tesoroValioso tesoro = valor tesoro > 100
@@ -99,3 +99,18 @@ diferentePirata p1 p2 = (nombrePirata p1) /= (nombrePirata p2)
 
 cambioEnLaTripulacion :: [Pirata] -> Barco -> Barco
 cambioEnLaTripulacion tripulacionNueva barco = (UnBarco (nombreBarco barco) tripulacionNueva (saqueoPreferido barco))
+
+data Isla = UnaIsla{ nombreIsla::String
+                        , elementoTipico::Tesoro
+                        }
+
+islaTortuga = (UnaIsla "Isla Tortuga" tesoroDavid1)
+
+anclarEnIslaDeshabitada :: Barco -> Isla -> Barco                       
+anclarEnIslaDeshabitada barco isla = cambioEnLaTripulacion (map (adquirirNuevoTesoro (elementoTipico isla)) (tripulacion barco)) barco
+
+data Ciudad = UnaCiudad{ nombreCiudad::String
+                        , tesoros::[Tesoro]
+                        }
+                
+portRoyal = (UnaCiudad "Port Royal" [tesoroAnne1, tesoroAnne2])
